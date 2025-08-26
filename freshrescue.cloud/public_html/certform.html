@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Food Donation Form</title>
+<style>
+/* Base styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+  margin: 0;
+  padding: 0;
+}
+
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 600px; /* Increased width for better certificate presentation */
+  overflow-y: auto; /* Add scrollbar */
+}
+
+.popup-content {
+  margin: 0 auto;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-control {
+  margin-bottom: 15px;
+}
+
+label {
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+textarea,
+button[type="submit"],
+select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+button[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+#certificate-popup {
+  display: none;
+}
+
+h2 {
+  text-align: center;
+  color: #4CAF50;
+  margin-bottom: 20px;
+}
+
+/* Certificate Popup */
+#certificate-popup {
+  display: none;
+}
+
+#certificate-popup .popup-content {
+  width: 100%;
+  max-width: 600px;
+}
+
+.certificate-details {
+  border-radius: 20px;
+  background-color: #FFF;
+  margin-bottom: 20px;
+  text-align: center;
+  padding: 40px;
+  position: relative;
+  overflow: hidden;
+  animation: slideIn 0.5s ease-in-out forwards;
+}
+
+.certificate-details:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom right, #f9f9f9, #e6e6e6); /* Gradient effect */
+  top: -4px; /* Adjust border thickness */
+  left: -4px; /* Adjust border thickness */
+  border-radius: 16px; /* Adjust border-radius */
+  z-index: -1;
+}
+
+.certificate-details h3 {
+  color: #4CAF50;
+  margin-bottom: 20px;
+  font-size: 28px;
+}
+
+.certificate-details p {
+  margin: 10px 0;
+}
+
+.certificate-details p strong {
+  font-weight: bold;
+}
+
+.certificate-details button {
+  background-color: #4CAF50;
+  color: white;
+  font-weight: bold;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 20px;
+  transition: background-color 0.3s;
+}
+
+.certificate-details button:hover {
+  background-color: #45a049;
+}
+
+.certified-text {
+  font-size: 14px;
+  color: #666;
+}
+
+/* Animation */
+@keyframes slideIn {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Print Certificate Button */
+.print-certificate {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.print-certificate button {
+  background-color: #4CAF50;
+  color: white;
+  font-weight: bold;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.print-certificate button:hover {
+  background-color: #45a049;
+}
+</style>
+</head>
+<body>
+
+<!-- Form -->
+<div class="popup" id="popup">
+  <div class="popup-content">
+    <h2>Food Donation Form</h2>
+    <form id="donation-form" method="post" action="javascript:void(0);">
+      <div class="form-control">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+      </div>
+      <div class="form-control">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div class="form-control">
+        <label for="phone">Phone:</label>
+        <input type="tel" id="phone" name="phone" required>
+      </div>
+      <div class="form-control">
+        <label for="address">Collection Address:</label>
+        <input type="text" id="address" name="address" required>
+      </div>
+      <div class="form-control">
+        <label for="category">Category:</label>
+        <select id="category" name="category" required>
+          <option value="veg">Vegetarian</option>
+          <option value="nonveg">Non-Vegetarian</option>
+          <option value="both">Both</option>
+        </select>
+      </div>
+      <div class="form-control">
+        <label for="quantity">Quantity (in Kg):</label>
+        <input type="number" id="quantity" name="quantity" required>
+      </div>
+      <div class="form-control">
+        <input type="checkbox" id="accept-terms" name="accept-terms" required>
+        <label for="accept-terms">I accept the Terms & Conditions</label>
+      </div>
+      <div class="form-control">
+        <button type="submit">Generate Certificate</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Certificate Popup -->
+<div class="popup" id="certificate-popup">
+  <div class="popup-content">
+    <div class="certificate-details">
+      <h3>Food Donation Certificate</h3>
+      <p>This is to certify that</p>
+      <p><strong id="certificate-name"></strong></p>
+      <p>has generously contributed to our cause by donating</p>
+      <p><strong id="certificate-quantity"></strong> kg of <strong id="certificate-category"></strong> food.</p>
+      <p class="certified-text">Certified by FreshRescue.cloud</p>
+    </div>
+    <div class="print-certificate">
+      <button onclick="window.print()">Print Certificate</button>
+    </div>
+  </div>
+</div>
+
+<!-- Script to handle form submission and certificate generation -->
+<script>
+function generateCertificate() {
+  // Get form data
+  const formData = new FormData(document.getElementById('donation-form'));
+  const certificateDetails = {};
+
+  // Extract form data
+  for (const [key, value] of formData.entries()) {
+    certificateDetails[key] = value;
+  }
+
+  // Hide form
+  document.getElementById('popup').style.display = 'none';
+
+  // Show certificate popup
+  document.getElementById('certificate-popup').style.display = 'block';
+
+  // Update certificate details
+  document.getElementById('certificate-name').innerText = certificateDetails.name;
+  document.getElementById('certificate-quantity').innerText = certificateDetails.quantity;
+  document.getElementById('certificate-category').innerText = certificateDetails.category;
+
+}
+
+// Call generateCertificate() when form is submitted
+document.getElementById('donation-form').addEventListener('submit', generateCertificate);
+</script>
+
+</body>
+</html>

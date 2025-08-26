@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Food Donation Certificate</title>
+<style>
+/* Certificate styles */
+.certificate {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  padding: 20px;
+  border: 2px solid #4CAF50;
+  border-radius: 20px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 400px;
+  overflow-y: auto; /* Add scrollbar */
+}
+
+.certificate-content {
+  margin: 0 auto;
+}
+
+h2 {
+  text-align: center;
+  color: #4CAF50;
+  margin-bottom: 20px;
+}
+
+.certificate-details {
+  font-size: 16px;
+}
+
+.certificate-details p {
+  margin-bottom: 15px;
+}
+
+.certificate-footer {
+  margin-top: 20px;
+  text-align: center;
+  font-style: italic;
+  font-size: 14px;
+  color: #888;
+}
+</style>
+</head>
+<body>
+
+<!-- Certificate -->
+<div class="certificate" id="certificate-popup">
+  <div class="certificate-content">
+    <h2>Food Donation Certificate</h2>
+    <div class="certificate-details">
+      <p><strong>Name:</strong> <span id="certificate-name"></span></p>
+      <p><strong>Email:</strong> <span id="certificate-email"></span></p>
+      <p><strong>Phone:</strong> <span id="certificate-phone"></span></p>
+      <p><strong>Collection Address:</strong> <span id="certificate-address"></span></p>
+      <p><strong>Category:</strong> <span id="certificate-category"></span></p>
+      <p><strong>Quantity:</strong> <span id="certificate-quantity"></span> Kg</p>
+    </div>
+    <div class="certificate-footer">Certified by freshrescue.cloud</div>
+  </div>
+</div>
+
+</body>
+</html>
